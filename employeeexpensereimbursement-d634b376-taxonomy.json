@@ -1,0 +1,1099 @@
+{
+  "id": "3ae31e3435909c5e",
+  "owner": "employeeexpensereimbursement-d634b376-ixp",
+  "name": "employeeexpensereimbursement-d634b376",
+  "title": "EmployeeExpenseReimbursement",
+  "description": "",
+  "created": "2026-04-18T23:55:50.115946Z",
+  "last_modified": "2026-04-22T14:08:20.852726Z",
+  "model_family": "transformer-english",
+  "source_ids": [
+    "5c10a1739acac36f",
+    "f0c83ac8e33fb645"
+  ],
+  "has_sentiment": true,
+  "limited_access": false,
+  "entity_defs": [
+    {
+      "id": "2c2c4c23de673fe2",
+      "name": "Amount",
+      "title": "",
+      "inherits_from": [
+        "0000000000000044"
+      ],
+      "trainable": true,
+      "color": 0,
+      "_entity_def_flags": [],
+      "instructions": ""
+    },
+    {
+      "id": "53238294c1ff6457",
+      "name": "Boolean",
+      "title": "Boolean",
+      "inherits_from": [
+        "0000000000000046"
+      ],
+      "trainable": true,
+      "color": 1,
+      "_entity_def_flags": [],
+      "instructions": "Use to represent boolean values in text."
+    },
+    {
+      "id": "4282d753d32884a3",
+      "name": "Choice",
+      "title": "",
+      "inherits_from": [
+        "0000000000000045"
+      ],
+      "trainable": true,
+      "color": 2,
+      "_entity_def_flags": [],
+      "instructions": "",
+      "rules": {
+        "suppressors": [],
+        "choices": [
+          {
+            "id": "2f6d1c35-dada-450c-963e-0593732607fe",
+            "name": "Hotel Receipt",
+            "values": []
+          },
+          {
+            "id": "e0195e57-04e6-4b3a-a9c7-9da77bf88437",
+            "name": "Dining / Restaurant Bill",
+            "values": []
+          },
+          {
+            "id": "48e0943e-b0a4-4e07-b644-953c60ea82cc",
+            "name": "Flight Ticket",
+            "values": []
+          },
+          {
+            "id": "4101466c-b25c-43b3-9dd4-0216d93ac36f",
+            "name": "Cab Receipt",
+            "values": []
+          },
+          {
+            "id": "12b816a4-19df-420d-ba43-ef10884bedc8",
+            "name": "WiFi / Internet Bill",
+            "values": []
+          }
+        ],
+        "regex": null
+      }
+    },
+    {
+      "id": "73167c1d75574f2b",
+      "name": "Date",
+      "title": "Date",
+      "inherits_from": [
+        "0000000000000007"
+      ],
+      "trainable": true,
+      "color": 3,
+      "_entity_def_flags": [],
+      "instructions": "Use to represent dates in text."
+    },
+    {
+      "id": "51e0f9357e454339",
+      "name": "Exact Text",
+      "title": "Exact Text",
+      "inherits_from": [],
+      "trainable": true,
+      "color": 4,
+      "_entity_def_flags": [
+        "appears_verbatim"
+      ],
+      "instructions": "Use to represent text that appears verbatim in text."
+    },
+    {
+      "id": "0f70e08f033afc8b",
+      "name": "Inferred Text",
+      "title": "Inferred Text",
+      "inherits_from": [],
+      "trainable": true,
+      "color": 5,
+      "_entity_def_flags": [],
+      "instructions": "Use for text that might not appear verbatim in the text."
+    },
+    {
+      "id": "2a8c95917828e101",
+      "name": "Monetary Quantity",
+      "title": "Monetary Quantity",
+      "inherits_from": [
+        "0000000000000006"
+      ],
+      "trainable": true,
+      "color": 6,
+      "_entity_def_flags": [],
+      "instructions": "Use to represent monetary values in text."
+    },
+    {
+      "id": "70b4a7b20e68ecc7",
+      "name": "Number",
+      "title": "Number",
+      "inherits_from": [
+        "0000000000000044"
+      ],
+      "trainable": true,
+      "color": 7,
+      "_entity_def_flags": [],
+      "instructions": "Use to represent amounts or quantities in text."
+    }
+  ],
+  "general_fields": [],
+  "label_groups": [
+    {
+      "name": "default",
+      "label_defs": [
+        {
+          "name": "Expense Document",
+          "id": "872ec765b068b80d",
+          "instructions": "This is the main table for all expense documents. The 'Document Type' field will classify the document, and subsequent child tables will contain details specific to that type.",
+          "moon_form": [
+            {
+              "field_id": "24fce44f22a26cf5",
+              "id": "4282d753d32884a3",
+              "field_type_id": "4282d753d32884a3",
+              "kind": "Choice",
+              "name": "Document Type",
+              "instructions": "Classify the document into one of the predefined types: 'Hotel Receipt', 'Dining / Restaurant Bill', 'Flight Ticket', 'Cab Receipt', 'WiFi / Internet Bill'.",
+              "rule_set": null
+            },
+            {
+              "field_id": "1f60dfb7d2e84d93",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Total Amount",
+              "instructions": "Extract the total amount of the expense. If a currency is present, include it. If not, assume the local currency of the document's origin where the local currency to be determined from within the document by a definite indicator of the country. e.g It can be in address ",
+              "rule_set": null
+            },
+            {
+              "field_id": "4ef18a39d0214c9d",
+              "id": "73167c1d75574f2b",
+              "field_type_id": "73167c1d75574f2b",
+              "kind": "Date",
+              "name": "Date of Statement",
+              "instructions": "Extract the date when the expense occurred or the document was issued.",
+              "rule_set": null
+            },
+            {
+              "field_id": "3563b50ffe5e3e73",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Vendor Name",
+              "instructions": "Extract the name of the vendor or service provider.",
+              "rule_set": null
+            }
+          ]
+        },
+        {
+          "name": "Expense Document > Cab Receipt",
+          "id": "085eafaea988cd22",
+          "instructions": "Extract specific details from cab receipts (Ola / Uber / printed slip).",
+          "moon_form": [
+            {
+              "field_id": "5d8e63e78ef523cf",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Cab Service Provider",
+              "instructions": "Extract the name of the cab service provider (e.g., Uber, Ola).",
+              "rule_set": null
+            },
+            {
+              "field_id": "329c74647d8d04bd",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Trip Fare",
+              "instructions": "Extract the base trip fare.",
+              "rule_set": null
+            },
+            {
+              "field_id": "873bd00e85c1a091",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Tolls, Surcharges, and Fees",
+              "instructions": "Extract the total amount for tolls, surcharges, and other fees.",
+              "rule_set": null
+            },
+            {
+              "field_id": "2d61f7c0665dbf63",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Wait Time Charges",
+              "instructions": "Extract charges for wait time, if applicable.",
+              "rule_set": null
+            },
+            {
+              "field_id": "a71c94fc869083df",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Taxes",
+              "instructions": "Extract any applicable taxes (e.g., IGST).",
+              "rule_set": null
+            },
+            {
+              "field_id": "921871825cd3e805",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Total Amount",
+              "instructions": "Extract the total amount paid for the cab ride.",
+              "rule_set": null
+            }
+          ]
+        },
+        {
+          "name": "Expense Document > Dining / Restaurant Bill",
+          "id": "3c146ee94a43b3b8",
+          "instructions": "Extract specific details from dining or restaurant bills.",
+          "moon_form": [
+            {
+              "field_id": "54a8ad28059aa5b6",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Restaurant Name",
+              "instructions": "Extract the name of the restaurant.",
+              "rule_set": null
+            },
+            {
+              "field_id": "9616a2b8b7d6973c",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Subtotal",
+              "instructions": "Extract the subtotal before taxes and service charges.",
+              "rule_set": null
+            },
+            {
+              "field_id": "a637149bbc5fbf9b",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Service Charge",
+              "instructions": "Extract the service charge amount.",
+              "rule_set": null
+            },
+            {
+              "field_id": "6ce8a170933ea66f",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "VAT Amount",
+              "instructions": "Extract the VAT (Value Added Tax) amount.",
+              "rule_set": null
+            },
+            {
+              "field_id": "376f0de4ba97ed37",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Government Taxes",
+              "instructions": "Extract any other government taxes.",
+              "rule_set": null
+            },
+            {
+              "field_id": "124be19df22dc514",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Grand Total",
+              "instructions": "Extract the grand total amount.",
+              "rule_set": null
+            }
+          ]
+        },
+        {
+          "name": "Expense Document > Flight Ticket",
+          "id": "181080c26c4c46b2",
+          "instructions": "Extract specific details from flight tickets (e-ticket or printed).",
+          "moon_form": [
+            {
+              "field_id": "cb07241efd2ec89c",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Passenger Name",
+              "instructions": "Extract the full name of the passenger.",
+              "rule_set": null
+            },
+            {
+              "field_id": "33009d6633f14b9d",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Airline Name",
+              "instructions": "Extract the name of the airline.",
+              "rule_set": null
+            },
+            {
+              "field_id": "68f8599f9f743d49",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Booking ID",
+              "instructions": "Extract the booking identification number.",
+              "rule_set": null
+            },
+            {
+              "field_id": "065b101af82fd023",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "PNR",
+              "instructions": "Extract the Passenger Name Record (PNR).",
+              "rule_set": null
+            },
+            {
+              "field_id": "f24edc0eeddef17e",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Ticket Number",
+              "instructions": "Extract the ticket number.",
+              "rule_set": null
+            },
+            {
+              "field_id": "c3eec114ef6483f7",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Departure City",
+              "instructions": "Extract the departure city.",
+              "rule_set": null
+            },
+            {
+              "field_id": "1c3f5dfbf6e454aa",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Arrival City",
+              "instructions": "Extract the arrival city.",
+              "rule_set": null
+            },
+            {
+              "field_id": "a3e13481dad69534",
+              "id": "73167c1d75574f2b",
+              "field_type_id": "73167c1d75574f2b",
+              "kind": "Date",
+              "name": "Flight Date",
+              "instructions": "Extract the date of the flight.",
+              "rule_set": null
+            },
+            {
+              "field_id": "c050c1f333e1bbdf",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Fare Charges",
+              "instructions": "Extract the base fare charges.",
+              "rule_set": null
+            },
+            {
+              "field_id": "c15fea04e87d9d0c",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Service Fees",
+              "instructions": "Extract any service fees.",
+              "rule_set": null
+            },
+            {
+              "field_id": "6a19fa9aa6a17c4e",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Taxes",
+              "instructions": "Extract any applicable taxes (e.g., CGST, SGST, IGST). If more than one form of taxes found e.g. if both CGST and SGST are found, return a sum as the total taxes.",
+              "rule_set": null
+            },
+            {
+              "field_id": "15d2458f9321465c",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Total Booking Amount",
+              "instructions": "Extract the total amount paid for the flight booking.",
+              "rule_set": null
+            }
+          ]
+        },
+        {
+          "name": "Expense Document > Hotel Receipt",
+          "id": "3a6dd46ac8e4fed6",
+          "instructions": "Extract specific details from hotel receipts.",
+          "moon_form": [
+            {
+              "field_id": "f7cfb3cfe5426cdf",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Guest Name",
+              "instructions": "Extract the full name of the guest.",
+              "rule_set": null
+            },
+            {
+              "field_id": "5c05eafa87476537",
+              "id": "73167c1d75574f2b",
+              "field_type_id": "73167c1d75574f2b",
+              "kind": "Date",
+              "name": "Check-in Date",
+              "instructions": "Extract the check-in date.",
+              "rule_set": null
+            },
+            {
+              "field_id": "b62ffa07f61b49a8",
+              "id": "73167c1d75574f2b",
+              "field_type_id": "73167c1d75574f2b",
+              "kind": "Date",
+              "name": "Check-out Date",
+              "instructions": "Extract the check-out date.",
+              "rule_set": null
+            },
+            {
+              "field_id": "e18360c20d2ccf0c",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Room Number",
+              "instructions": "Extract the room number, if available.",
+              "rule_set": null
+            },
+            {
+              "field_id": "749c01d3551cda70",
+              "id": "2c2c4c23de673fe2",
+              "field_type_id": "2c2c4c23de673fe2",
+              "kind": "Amount",
+              "name": "Number of Nights",
+              "instructions": "Calculate the number of nights stayed based on check-in and check-out dates, or extract directly if available.",
+              "rule_set": null
+            },
+            {
+              "field_id": "d06eef16966a608a",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Room Charges",
+              "instructions": "Extract the amount charged for the room.",
+              "rule_set": null
+            },
+            {
+              "field_id": "67f339dbbb1383a4",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Taxes",
+              "instructions": "Extract the total tax amount.",
+              "rule_set": null
+            }
+          ]
+        },
+        {
+          "name": "Expense Document > WiFi / Internet Bill",
+          "id": "35ced2e627b757ec",
+          "instructions": "Extract specific details from WiFi or Internet bills.",
+          "moon_form": [
+            {
+              "field_id": "790bf498007986b2",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Service Provider Name",
+              "instructions": "Extract the name of the internet service provider.",
+              "rule_set": null
+            },
+            {
+              "field_id": "a4195062360f6579",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Account Holder Name",
+              "instructions": "Extract the name of the account holder.",
+              "rule_set": null
+            },
+            {
+              "field_id": "fa0a232bbf64621d",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Account Number",
+              "instructions": "Extract the account number for the internet service. This account can sometimes be even listed in the summary of the charges.",
+              "rule_set": null
+            },
+            {
+              "field_id": "6760f8a7d7b84381",
+              "id": "51e0f9357e454339",
+              "field_type_id": "51e0f9357e454339",
+              "kind": "Exact Text",
+              "name": "Plan Name",
+              "instructions": "Extract the name of the internet plan.",
+              "rule_set": null
+            },
+            {
+              "field_id": "b804e2ad5cf8fa80",
+              "id": "73167c1d75574f2b",
+              "field_type_id": "73167c1d75574f2b",
+              "kind": "Date",
+              "name": "Statement Date",
+              "instructions": "Extract the date the statement was issued.",
+              "rule_set": null
+            },
+            {
+              "field_id": "69413c95da8ae681",
+              "id": "73167c1d75574f2b",
+              "field_type_id": "73167c1d75574f2b",
+              "kind": "Date",
+              "name": "Statement Period Start Date",
+              "instructions": "Extract the start date of the billing period.",
+              "rule_set": null
+            },
+            {
+              "field_id": "e19abc6966c31044",
+              "id": "73167c1d75574f2b",
+              "field_type_id": "73167c1d75574f2b",
+              "kind": "Date",
+              "name": "Statement Period End Date",
+              "instructions": "Extract the end date of the billing period.",
+              "rule_set": null
+            },
+            {
+              "field_id": "a794abc59f840524",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Total Amount Payable",
+              "instructions": "Extract the total amount due for the bill.",
+              "rule_set": null
+            },
+            {
+              "field_id": "1cf1edc61d632a78",
+              "id": "73167c1d75574f2b",
+              "field_type_id": "73167c1d75574f2b",
+              "kind": "Date",
+              "name": "Due Date",
+              "instructions": "Extract the payment due date.",
+              "rule_set": null
+            },
+            {
+              "field_id": "30bfcc1886f4eb33",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Basic Amount",
+              "instructions": "Extract the basic amount for the plan/pack charges.",
+              "rule_set": null
+            },
+            {
+              "field_id": "91d6e213e709d123",
+              "id": "2a8c95917828e101",
+              "field_type_id": "2a8c95917828e101",
+              "kind": "Monetary Quantity",
+              "name": "Taxes (GST)",
+              "instructions": "Extract the total GST amount.",
+              "rule_set": null
+            }
+          ]
+        }
+      ],
+      "label_collection_name": null,
+      "trainable": true,
+      "hidden": false,
+      "instructions": "This schema is designed to extract key information from various employee expense documents to facilitate analysis and automation of expense processing. The document type will be inferred first, and then specific details relevant to that document type will be extracted."
+    }
+  ],
+  "label_defs": [
+    {
+      "name": "Expense Document",
+      "id": "872ec765b068b80d",
+      "instructions": "This is the main table for all expense documents. The 'Document Type' field will classify the document, and subsequent child tables will contain details specific to that type.",
+      "moon_form": [
+        {
+          "field_id": "24fce44f22a26cf5",
+          "id": "4282d753d32884a3",
+          "field_type_id": "4282d753d32884a3",
+          "kind": "Choice",
+          "name": "Document Type",
+          "instructions": "Classify the document into one of the predefined types: 'Hotel Receipt', 'Dining / Restaurant Bill', 'Flight Ticket', 'Cab Receipt', 'WiFi / Internet Bill'.",
+          "rule_set": null
+        },
+        {
+          "field_id": "1f60dfb7d2e84d93",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Total Amount",
+          "instructions": "Extract the total amount of the expense. If a currency is present, include it. If not, assume the local currency of the document's origin where the local currency to be determined from within the document by a definite indicator of the country. e.g It can be in address ",
+          "rule_set": null
+        },
+        {
+          "field_id": "4ef18a39d0214c9d",
+          "id": "73167c1d75574f2b",
+          "field_type_id": "73167c1d75574f2b",
+          "kind": "Date",
+          "name": "Date of Statement",
+          "instructions": "Extract the date when the expense occurred or the document was issued.",
+          "rule_set": null
+        },
+        {
+          "field_id": "3563b50ffe5e3e73",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Vendor Name",
+          "instructions": "Extract the name of the vendor or service provider.",
+          "rule_set": null
+        }
+      ]
+    },
+    {
+      "name": "Expense Document > Cab Receipt",
+      "id": "085eafaea988cd22",
+      "instructions": "Extract specific details from cab receipts (Ola / Uber / printed slip).",
+      "moon_form": [
+        {
+          "field_id": "5d8e63e78ef523cf",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Cab Service Provider",
+          "instructions": "Extract the name of the cab service provider (e.g., Uber, Ola).",
+          "rule_set": null
+        },
+        {
+          "field_id": "329c74647d8d04bd",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Trip Fare",
+          "instructions": "Extract the base trip fare.",
+          "rule_set": null
+        },
+        {
+          "field_id": "873bd00e85c1a091",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Tolls, Surcharges, and Fees",
+          "instructions": "Extract the total amount for tolls, surcharges, and other fees.",
+          "rule_set": null
+        },
+        {
+          "field_id": "2d61f7c0665dbf63",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Wait Time Charges",
+          "instructions": "Extract charges for wait time, if applicable.",
+          "rule_set": null
+        },
+        {
+          "field_id": "a71c94fc869083df",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Taxes",
+          "instructions": "Extract any applicable taxes (e.g., IGST).",
+          "rule_set": null
+        },
+        {
+          "field_id": "921871825cd3e805",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Total Amount",
+          "instructions": "Extract the total amount paid for the cab ride.",
+          "rule_set": null
+        }
+      ]
+    },
+    {
+      "name": "Expense Document > Dining / Restaurant Bill",
+      "id": "3c146ee94a43b3b8",
+      "instructions": "Extract specific details from dining or restaurant bills.",
+      "moon_form": [
+        {
+          "field_id": "54a8ad28059aa5b6",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Restaurant Name",
+          "instructions": "Extract the name of the restaurant.",
+          "rule_set": null
+        },
+        {
+          "field_id": "9616a2b8b7d6973c",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Subtotal",
+          "instructions": "Extract the subtotal before taxes and service charges.",
+          "rule_set": null
+        },
+        {
+          "field_id": "a637149bbc5fbf9b",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Service Charge",
+          "instructions": "Extract the service charge amount.",
+          "rule_set": null
+        },
+        {
+          "field_id": "6ce8a170933ea66f",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "VAT Amount",
+          "instructions": "Extract the VAT (Value Added Tax) amount.",
+          "rule_set": null
+        },
+        {
+          "field_id": "376f0de4ba97ed37",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Government Taxes",
+          "instructions": "Extract any other government taxes.",
+          "rule_set": null
+        },
+        {
+          "field_id": "124be19df22dc514",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Grand Total",
+          "instructions": "Extract the grand total amount.",
+          "rule_set": null
+        }
+      ]
+    },
+    {
+      "name": "Expense Document > Flight Ticket",
+      "id": "181080c26c4c46b2",
+      "instructions": "Extract specific details from flight tickets (e-ticket or printed).",
+      "moon_form": [
+        {
+          "field_id": "cb07241efd2ec89c",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Passenger Name",
+          "instructions": "Extract the full name of the passenger.",
+          "rule_set": null
+        },
+        {
+          "field_id": "33009d6633f14b9d",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Airline Name",
+          "instructions": "Extract the name of the airline.",
+          "rule_set": null
+        },
+        {
+          "field_id": "68f8599f9f743d49",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Booking ID",
+          "instructions": "Extract the booking identification number.",
+          "rule_set": null
+        },
+        {
+          "field_id": "065b101af82fd023",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "PNR",
+          "instructions": "Extract the Passenger Name Record (PNR).",
+          "rule_set": null
+        },
+        {
+          "field_id": "f24edc0eeddef17e",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Ticket Number",
+          "instructions": "Extract the ticket number.",
+          "rule_set": null
+        },
+        {
+          "field_id": "c3eec114ef6483f7",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Departure City",
+          "instructions": "Extract the departure city.",
+          "rule_set": null
+        },
+        {
+          "field_id": "1c3f5dfbf6e454aa",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Arrival City",
+          "instructions": "Extract the arrival city.",
+          "rule_set": null
+        },
+        {
+          "field_id": "a3e13481dad69534",
+          "id": "73167c1d75574f2b",
+          "field_type_id": "73167c1d75574f2b",
+          "kind": "Date",
+          "name": "Flight Date",
+          "instructions": "Extract the date of the flight.",
+          "rule_set": null
+        },
+        {
+          "field_id": "c050c1f333e1bbdf",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Fare Charges",
+          "instructions": "Extract the base fare charges.",
+          "rule_set": null
+        },
+        {
+          "field_id": "c15fea04e87d9d0c",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Service Fees",
+          "instructions": "Extract any service fees.",
+          "rule_set": null
+        },
+        {
+          "field_id": "6a19fa9aa6a17c4e",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Taxes",
+          "instructions": "Extract any applicable taxes (e.g., CGST, SGST, IGST). If more than one form of taxes found e.g. if both CGST and SGST are found, return a sum as the total taxes.",
+          "rule_set": null
+        },
+        {
+          "field_id": "15d2458f9321465c",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Total Booking Amount",
+          "instructions": "Extract the total amount paid for the flight booking.",
+          "rule_set": null
+        }
+      ]
+    },
+    {
+      "name": "Expense Document > Hotel Receipt",
+      "id": "3a6dd46ac8e4fed6",
+      "instructions": "Extract specific details from hotel receipts.",
+      "moon_form": [
+        {
+          "field_id": "f7cfb3cfe5426cdf",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Guest Name",
+          "instructions": "Extract the full name of the guest.",
+          "rule_set": null
+        },
+        {
+          "field_id": "5c05eafa87476537",
+          "id": "73167c1d75574f2b",
+          "field_type_id": "73167c1d75574f2b",
+          "kind": "Date",
+          "name": "Check-in Date",
+          "instructions": "Extract the check-in date.",
+          "rule_set": null
+        },
+        {
+          "field_id": "b62ffa07f61b49a8",
+          "id": "73167c1d75574f2b",
+          "field_type_id": "73167c1d75574f2b",
+          "kind": "Date",
+          "name": "Check-out Date",
+          "instructions": "Extract the check-out date.",
+          "rule_set": null
+        },
+        {
+          "field_id": "e18360c20d2ccf0c",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Room Number",
+          "instructions": "Extract the room number, if available.",
+          "rule_set": null
+        },
+        {
+          "field_id": "749c01d3551cda70",
+          "id": "2c2c4c23de673fe2",
+          "field_type_id": "2c2c4c23de673fe2",
+          "kind": "Amount",
+          "name": "Number of Nights",
+          "instructions": "Calculate the number of nights stayed based on check-in and check-out dates, or extract directly if available.",
+          "rule_set": null
+        },
+        {
+          "field_id": "d06eef16966a608a",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Room Charges",
+          "instructions": "Extract the amount charged for the room.",
+          "rule_set": null
+        },
+        {
+          "field_id": "67f339dbbb1383a4",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Taxes",
+          "instructions": "Extract the total tax amount.",
+          "rule_set": null
+        }
+      ]
+    },
+    {
+      "name": "Expense Document > WiFi / Internet Bill",
+      "id": "35ced2e627b757ec",
+      "instructions": "Extract specific details from WiFi or Internet bills.",
+      "moon_form": [
+        {
+          "field_id": "790bf498007986b2",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Service Provider Name",
+          "instructions": "Extract the name of the internet service provider.",
+          "rule_set": null
+        },
+        {
+          "field_id": "a4195062360f6579",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Account Holder Name",
+          "instructions": "Extract the name of the account holder.",
+          "rule_set": null
+        },
+        {
+          "field_id": "fa0a232bbf64621d",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Account Number",
+          "instructions": "Extract the account number for the internet service. This account can sometimes be even listed in the summary of the charges.",
+          "rule_set": null
+        },
+        {
+          "field_id": "6760f8a7d7b84381",
+          "id": "51e0f9357e454339",
+          "field_type_id": "51e0f9357e454339",
+          "kind": "Exact Text",
+          "name": "Plan Name",
+          "instructions": "Extract the name of the internet plan.",
+          "rule_set": null
+        },
+        {
+          "field_id": "b804e2ad5cf8fa80",
+          "id": "73167c1d75574f2b",
+          "field_type_id": "73167c1d75574f2b",
+          "kind": "Date",
+          "name": "Statement Date",
+          "instructions": "Extract the date the statement was issued.",
+          "rule_set": null
+        },
+        {
+          "field_id": "69413c95da8ae681",
+          "id": "73167c1d75574f2b",
+          "field_type_id": "73167c1d75574f2b",
+          "kind": "Date",
+          "name": "Statement Period Start Date",
+          "instructions": "Extract the start date of the billing period.",
+          "rule_set": null
+        },
+        {
+          "field_id": "e19abc6966c31044",
+          "id": "73167c1d75574f2b",
+          "field_type_id": "73167c1d75574f2b",
+          "kind": "Date",
+          "name": "Statement Period End Date",
+          "instructions": "Extract the end date of the billing period.",
+          "rule_set": null
+        },
+        {
+          "field_id": "a794abc59f840524",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Total Amount Payable",
+          "instructions": "Extract the total amount due for the bill.",
+          "rule_set": null
+        },
+        {
+          "field_id": "1cf1edc61d632a78",
+          "id": "73167c1d75574f2b",
+          "field_type_id": "73167c1d75574f2b",
+          "kind": "Date",
+          "name": "Due Date",
+          "instructions": "Extract the payment due date.",
+          "rule_set": null
+        },
+        {
+          "field_id": "30bfcc1886f4eb33",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Basic Amount",
+          "instructions": "Extract the basic amount for the plan/pack charges.",
+          "rule_set": null
+        },
+        {
+          "field_id": "91d6e213e709d123",
+          "id": "2a8c95917828e101",
+          "field_type_id": "2a8c95917828e101",
+          "kind": "Monetary Quantity",
+          "name": "Taxes (GST)",
+          "instructions": "Extract the total GST amount.",
+          "rule_set": null
+        }
+      ]
+    }
+  ],
+  "_timezone": "UTC",
+  "_label_properties": [],
+  "_preferred_locales": {
+    "default": "en_GB",
+    "preferences": []
+  },
+  "_dataset_flags": [
+    "ixp"
+  ],
+  "_model_config": {
+    "kind": "gpt_ixp",
+    "model_version": "gemini_2_5_flash",
+    "input_config": {
+      "mode": "text_plus_image",
+      "text_config": {
+        "kind": "uipath_cv_table_only"
+      }
+    },
+    "system_prompt_override": null,
+    "frequency_penalty": null,
+    "temperature": null,
+    "top_p": null,
+    "seed": null,
+    "flags": [],
+    "iterative_config": {
+      "max_num_calls": null,
+      "chunk_size": null
+    },
+    "attribution_method": "word_ids"
+  }
+}
