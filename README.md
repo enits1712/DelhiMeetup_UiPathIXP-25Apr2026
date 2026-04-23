@@ -205,4 +205,4 @@ You have successfully:
 
 ---
 
-> For questions or issues during the session, reach out to the session facilitator.
+> For questions or issues during the session, reach out to the session facilitator or reach out to [me](https://www.linkedin.com/in/enits1712/).
